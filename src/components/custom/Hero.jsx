@@ -1,6 +1,7 @@
 import Phill from "./phill"
 import { Button } from "@/components/ui/button"
 import { FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 const Hero = () => {
@@ -17,7 +18,8 @@ const Hero = () => {
         <span>`Discover Your Next Great Adventure with <span className="text-[#6B00EE]">Tripster.ai</span>: Effortlessly Create Personalized Itineraries Tailored to Your Interests`</span>
       </div>
 
-      <Button className="flex items-center justify-center gap-2 text-sm">Get Started <FaArrowRight /></Button>
+      <Link to={"/create-trip"}>
+      <Button className="flex items-center justify-center gap-2 text-sm">Get Started <FaArrowRight /></Button></Link>
     </div>
 
     </div>
