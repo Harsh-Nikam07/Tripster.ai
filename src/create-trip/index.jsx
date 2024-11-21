@@ -4,12 +4,14 @@ import { Input } from '@/components/ui/input';
 import { SelectBudgetOptions, SelectTravelesList } from '@/constants/options';
 import { Button } from '@/components/ui/button';
 import { FaQuestion } from "react-icons/fa6";
+import { LiaTimesSolid } from "react-icons/lia";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { toast } from "sonner"
 
 
 const CreateTrip = () => {
@@ -36,7 +38,15 @@ const CreateTrip = () => {
   }, [formData])
 
   const onGenerateTrip = () =>{
-    console.log(formData)
+
+    if(!formData?.noOfDays || !formData?.location || !formData?.Budget || !formData?.People){
+      toast.error("Please fill all the fields", {
+        action: {
+          label: <LiaTimesSolid  className='text-xl'/>,
+        }
+      });
+    }
+    // console.log(formData)
   }
 
   return (
