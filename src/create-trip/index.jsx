@@ -40,7 +40,8 @@ const CreateTrip = () => {
   const onGenerateTrip = () =>{
 
     if(!formData?.noOfDays || !formData?.location || !formData?.Budget || !formData?.People){
-      toast.error("Please fill all the fields", {
+      toast.error("Please fill all the fields", 
+        {
         action: {
           label: <LiaTimesSolid  className='text-xl'/>,
         }
