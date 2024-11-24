@@ -1,7 +1,7 @@
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { useEffect, useState } from 'react';
 import { Input } from '@/components/ui/input';
-import { SelectBudgetOptions, SelectTravelesList } from '@/constants/options';
+import { SelectBudgetOptions, SelectTravelesList, AI_PROMPT } from '@/constants/options';
 import { Button } from '@/components/ui/button';
 import { FaQuestion } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { toast } from "sonner"
+import { chatSession } from '@/service/AiModel';
 
 
 const CreateTrip = () => {
@@ -37,7 +38,7 @@ const CreateTrip = () => {
     console.log(formData)
   }, [formData])
 
-  const onGenerateTrip = () =>{
+  const onGenerateTrip = async () =>  {
 
     if(!formData?.noOfDays || !formData?.location || !formData?.Budget || !formData?.People){
       toast.error("Please fill all the fields", 
@@ -47,7 +48,16 @@ const CreateTrip = () => {
         }
       });
     }
-    // console.log(formData)
+    const finalPrompt = AI_PROMPT.replace("{location}", formData?.location?.label)
+    .replace("{totalDays}", formData?.noOfDays)
+    .replace("{traveler}", formData?.People)
+    .replace("{budget}", formData?.Budget)
+    .replace("{totalDays}",formData?.noOfDays)
+
+    console.log(finalPrompt)
+
+    const result = await chatSession.sendMessage(finalPrompt);
+    console.log(result?.response?.text());
   }
 
   return (
