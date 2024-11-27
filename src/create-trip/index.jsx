@@ -51,10 +51,19 @@ const CreateTrip = () => {
     console.log(formData)
   }, [formData])
 
-  const login= useGoogleLogin({
-    onSuccess:(codeResponse) =>{console.log(codeResponse)},
-    onError:(error)=>{console.log(error)}
-  })
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      console.log(codeResponse);
+      localStorage.setItem("user", JSON.stringify(codeResponse));
+      setOpenDialog(false);
+      toast.success("Successfully logged in!");
+    },
+    onError: (error) => {
+      console.error("Login Failed:", error);
+      toast.error("Login failed. Please try again.");
+    },
+    flow: 'implicit' 
+  });
 
   const onGenerateTrip = async () =>  {
 
