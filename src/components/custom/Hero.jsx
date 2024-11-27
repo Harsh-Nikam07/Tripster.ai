@@ -1,4 +1,4 @@
-import Phill from "./phill"
+import { Phill } from "../custom/Phill"
 import { Button } from "@/components/ui/button"
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";

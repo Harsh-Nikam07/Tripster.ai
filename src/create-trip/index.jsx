@@ -5,20 +5,33 @@ import { SelectBudgetOptions, SelectTravelesList, AI_PROMPT } from '@/constants/
 import { Button } from '@/components/ui/button';
 import { FaQuestion } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
+import { FcGoogle } from "react-icons/fc";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { toast } from "sonner"
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  // DialogTitle,
+  // DialogTrigger,
+} from "@/components/ui/dialog"
+
 import { chatSession } from '@/service/AiModel';
+import { useGoogleLogin } from '@react-oauth/google';
 
 
 const CreateTrip = () => {
   const [place, setPlace] = useState();
 
   const [formData, setFormData] = useState([]);
+
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleInputChange = (name, value) =>{
 
@@ -38,7 +51,19 @@ const CreateTrip = () => {
     console.log(formData)
   }, [formData])
 
+  const login= useGoogleLogin({
+    onSuccess:(codeResponse) =>{console.log(codeResponse)},
+    onError:(error)=>{console.log(error)}
+  })
+
   const onGenerateTrip = async () =>  {
+
+    const user = localStorage.getItem("user");
+
+    if(!user){
+      setOpenDialog(true);
+      return;
+    }
 
     if(!formData?.noOfDays || !formData?.location || !formData?.Budget || !formData?.People){
       toast.error("Please fill all the fields", 
@@ -203,6 +228,28 @@ const CreateTrip = () => {
           <div className=' w-full flex justify-end'>
             <Button onClick={onGenerateTrip} >Generate Trip</Button>
           </div>
+
+          <Dialog open={openDialog} onOpenChange={() => setOpenDialog(false)}>
+            {/* <DialogTrigger>Open</DialogTrigger> */}
+            <DialogContent>
+              <DialogHeader>
+                {/* <DialogTitle>Are you absolutely sure?</DialogTitle> */}
+                <DialogDescription>
+                  <div className='flex flex-col items-start justify-center gap-3'>
+                    <img src="/tripster-main-logo.svg" alt="Tripster.ai" className='w-40'/>
+                    <p className='text-base font-medium'>Sign In Securely with Google</p>
+                 
+                    <Button 
+                      onClick={login}
+                    className='w-full flex justify-center items-center gap-2 py-3 mt-2'>
+                      <FcGoogle/>
+                      Sign In with Google</Button>
+                  </div>
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+
 
         </div>
 
