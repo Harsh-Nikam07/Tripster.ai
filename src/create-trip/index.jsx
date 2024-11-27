@@ -56,11 +56,20 @@ const CreateTrip = () => {
       console.log(codeResponse);
       localStorage.setItem("user", JSON.stringify(codeResponse));
       setOpenDialog(false);
-      toast.success("Successfully logged in!");
+      toast.success("Successfully logged in!", {
+        action: {
+          label: <LiaTimesSolid className='text-xl'/>,
+        }
+      });
     },
     onError: (error) => {
       console.error("Login Failed:", error);
-      toast.error("Login failed. Please try again.");
+      toast.error("Login failed. Please try again.", {
+          action: {
+            label: <LiaTimesSolid className='text-xl'/>,
+          }
+        }
+      );
     },
     flow: 'implicit' 
   });
@@ -74,24 +83,26 @@ const CreateTrip = () => {
       return;
     }
 
-    if(!formData?.noOfDays || !formData?.location || !formData?.Budget || !formData?.People){
-      toast.error("Please fill all the fields", 
-        {
+
+    if (!formData?.location?.label || !formData?.noOfDays || !formData?.People || !formData?.Budget) {
+      toast.error("Please fill all the fields", {
         action: {
-          label: <LiaTimesSolid  className='text-xl'/>,
+          label: <LiaTimesSolid className='text-xl'/>,
         }
       });
+      return;
     }
-    const finalPrompt = AI_PROMPT.replace("{location}", formData?.location?.label)
-    .replace("{totalDays}", formData?.noOfDays)
-    .replace("{traveler}", formData?.People)
-    .replace("{budget}", formData?.Budget)
-    .replace("{totalDays}",formData?.noOfDays)
+
+    const finalPrompt = AI_PROMPT.replace("{location}", formData.location.label)
+      .replace("{totalDays}", formData.noOfDays)
+      .replace("{traveler}", formData.People)
+      .replace("{budget}", formData.Budget)
+      .replace("{totalDays}", formData.noOfDays)
 
     console.log(finalPrompt)
 
     const result = await chatSession.sendMessage(finalPrompt);
-    console.log(result?.response?.text()); 
+    console.log(result?.response?.text());
   }
 
   return (
