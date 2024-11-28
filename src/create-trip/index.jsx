@@ -24,6 +24,7 @@ import {
 
 import { chatSession } from '@/service/AiModel';
 import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 
 const CreateTrip = () => {
@@ -56,15 +57,16 @@ const CreateTrip = () => {
       console.log(codeResponse);
       localStorage.setItem("user", JSON.stringify(codeResponse));
       setOpenDialog(false);
-      toast.success("Successfully logged in!", {
+      toast.success("Successfully logged in! 🎉", {
         action: {
           label: <LiaTimesSolid className='text-xl'/>,
         }
       });
+      getUserProfile(codeResponse)
     },
     onError: (error) => {
       console.error("Login Failed:", error);
-      toast.error("Login failed. Please try again.", {
+      toast.error("Login failed. Please try again. 😕", {
           action: {
             label: <LiaTimesSolid className='text-xl'/>,
           }
@@ -85,7 +87,7 @@ const CreateTrip = () => {
 
 
     if (!formData?.location?.label || !formData?.noOfDays || !formData?.People || !formData?.Budget) {
-      toast.error("Please fill all the fields", {
+      toast.error("Please fill all the fields ✍️", {
         action: {
           label: <LiaTimesSolid className='text-xl'/>,
         }
@@ -103,6 +105,24 @@ const CreateTrip = () => {
 
     const result = await chatSession.sendMessage(finalPrompt);
     console.log(result?.response?.text());
+  }
+
+  const getUserProfile = (tokenInfo) =>{
+    axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenInfo?.access_token}`,
+      {
+        headers:{
+          Authorization: `Bearer ${tokenInfo?.access_token}`,
+          Accept:`application/json`
+        }
+      }
+    ).then((response)=>{
+      console.log(response)
+      setOpenDialog(false);
+      localStorage.setItem("userProfile",JSON.stringify(response?.data))
+      onGenerateTrip();
+    }).catch((error)=>{
+      console.log(error)
+    })
   }
 
   return (
