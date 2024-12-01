@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { FaQuestion } from "react-icons/fa6";
 import { LiaTimesSolid } from "react-icons/lia";
 import { FcGoogle } from "react-icons/fc";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {
   Tooltip,
   TooltipContent,
@@ -18,14 +19,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  // DialogTitle,
-  // DialogTrigger,
 } from "@/components/ui/dialog"
 
 import { chatSession } from '@/service/AiModel';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
-
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '@/service/firebaseConfig';
 
 const CreateTrip = () => {
   const [place, setPlace] = useState();
@@ -33,6 +33,8 @@ const CreateTrip = () => {
   const [formData, setFormData] = useState([]);
 
   const [openDialog, setOpenDialog] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (name, value) =>{
 
@@ -76,16 +78,16 @@ const CreateTrip = () => {
     flow: 'implicit' 
   });
 
-  const onGenerateTrip = async () =>  {
 
+
+  const onGenerateTrip = async () => {
     const user = localStorage.getItem("user");
-
+  
     if(!user){
       setOpenDialog(true);
       return;
     }
-
-
+  
     if (!formData?.location?.label || !formData?.noOfDays || !formData?.People || !formData?.Budget) {
       toast.error("Please fill all the fields ✍️", {
         action: {
@@ -94,18 +96,71 @@ const CreateTrip = () => {
       });
       return;
     }
+  
+    try {
+      setLoading(true);
+  
+      const finalPrompt = AI_PROMPT.replace("{location}", formData.location.label)
+        .replace("{totalDays}", formData.noOfDays)
+        .replace("{traveler}", formData.People)
+        .replace("{budget}", formData.Budget)
+        .replace("{totalDays}", formData.noOfDays);
+      console.log(finalPrompt)
+      const result = await chatSession.sendMessage(finalPrompt);
+      const tripText = result.response.text();
+      await saveTripData(tripText);
+      
+      toast.success("Trip generated successfully! 🎉", {
+        action: {
+          label: <LiaTimesSolid className='text-xl'/>,
+        }
+      });
 
-    const finalPrompt = AI_PROMPT.replace("{location}", formData.location.label)
-      .replace("{totalDays}", formData.noOfDays)
-      .replace("{traveler}", formData.People)
-      .replace("{budget}", formData.Budget)
-      .replace("{totalDays}", formData.noOfDays)
-
-    console.log(finalPrompt)
-
-    const result = await chatSession.sendMessage(finalPrompt);
-    console.log(result?.response?.text());
+      console.log(tripText)
+    } catch (error) {
+      console.error("Error generating trip:", error);
+      toast.error("Failed to generate trip. Please try again.", {
+        action: {
+          label: <LiaTimesSolid className='text-xl'/>,
+        }
+      });
+    } finally {
+      setLoading(false);
+    }
   }
+
+
+  // Save trip data to firebase
+
+  const saveTripData = async (tripData) => {
+    try {
+      const user = JSON.parse(localStorage.getItem("userProfile"));
+      if (!user?.email) {
+        throw new Error("User email not found");
+      }
+  
+      const docID = Date.now().toString();
+      const tripDoc = {
+        userSelection: formData,
+        tripData: tripData,
+        userEmail: user.email,
+        id: docID,
+        createdAt: new Date().toISOString()
+      };
+  
+      await setDoc(doc(db, "aiTrips", docID), tripDoc);
+      console.log("Trip saved successfully!");
+    } catch (error) {
+      console.error("Error saving trip:", error);
+      toast.error("Failed to save trip data. Please try again.", {
+        action: {
+          label: <LiaTimesSolid className='text-xl'/>,
+        }
+      });
+      throw error; // Re-throw to be caught by the calling function
+    }
+  }
+
 
   const getUserProfile = (tokenInfo) =>{
     axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${tokenInfo?.access_token}`,
@@ -266,7 +321,14 @@ const CreateTrip = () => {
           </div>
 
           <div className=' w-full flex justify-end'>
-            <Button onClick={onGenerateTrip} >Generate Trip</Button>
+            <Button onClick={onGenerateTrip}
+              disabled={loading}
+            >
+              {
+                loading ? <AiOutlineLoading3Quarters className='animate-spin'/> : "Generate Trip"
+              }
+              
+              </Button>
           </div>
 
           <Dialog open={openDialog} onOpenChange={() => setOpenDialog(false)}>
@@ -281,6 +343,7 @@ const CreateTrip = () => {
                  
                     <Button 
                       onClick={login}
+                     
                     className='w-full flex justify-center items-center gap-2 py-3 mt-2'>
                       <FcGoogle/>
                       Sign In with Google</Button>
