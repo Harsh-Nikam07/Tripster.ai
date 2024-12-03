@@ -26,6 +26,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { doc, setDoc } from "firebase/firestore";
 import { db } from '@/service/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const CreateTrip = () => {
   const [place, setPlace] = useState();
@@ -35,6 +36,8 @@ const CreateTrip = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = (name, value) =>{
 
@@ -142,7 +145,7 @@ const CreateTrip = () => {
       const docID = Date.now().toString();
       const tripDoc = {
         userSelection: formData,
-        tripData: tripData,
+        tripData: JSON.parse(tripData),
         userEmail: user.email,
         id: docID,
         createdAt: new Date().toISOString()
@@ -150,6 +153,7 @@ const CreateTrip = () => {
   
       await setDoc(doc(db, "aiTrips", docID), tripDoc);
       console.log("Trip saved successfully!");
+      navigate("/view-trip/"+ docID)
     } catch (error) {
       console.error("Error saving trip:", error);
       toast.error("Failed to save trip data. Please try again.", {
@@ -159,6 +163,8 @@ const CreateTrip = () => {
       });
       throw error; // Re-throw to be caught by the calling function
     }
+
+    
   }
 
 
@@ -332,10 +338,10 @@ const CreateTrip = () => {
           </div>
 
           <Dialog open={openDialog} onOpenChange={() => setOpenDialog(false)}>
-            {/* <DialogTrigger>Open</DialogTrigger> */}
+
             <DialogContent>
               <DialogHeader>
-                {/* <DialogTitle>Are you absolutely sure?</DialogTitle> */}
+
                 <DialogDescription>
                   <div className='flex flex-col items-start justify-center gap-3'>
                     <img src="/tripster-main-logo.svg" alt="Tripster.ai" className='w-40'/>
