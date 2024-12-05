@@ -1,15 +1,28 @@
-import { doc } from "firebase/firestore";
+import { db } from "@/service/firebaseConfig"
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom"
+import { toast } from "sonner";
 
 
 const ViewTrip = () => {
 
     const {tripId} = useParams();
 
+    useEffect( () => {
+       tripId && getTripDataFromDB()
+    })
     const getTripDataFromDB = async () => {
-         const docRef = doc(db, "AITrips", tripId)
+         const docRef = doc(db, "aiTrips", tripId); // Corrected collection name from "AITrips" to "aiTrips"
 
-         const docSnap = await getDoc(docRef)
+         const docSnap = await getDoc(docRef);
+
+         if(docSnap.exists()){
+          console.log("document : ", docSnap.data())
+         } else{
+          console.log("no such data ")
+          toast.error("no such data")
+         }
     } 
   return (
     <div>
