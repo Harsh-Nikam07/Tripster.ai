@@ -13,7 +13,7 @@ const ViewTrip = () => {
        tripId && getTripDataFromDB()
     })
     const getTripDataFromDB = async () => {
-         const docRef = doc(db, "aiTrips", tripId); // Corrected collection name from "AITrips" to "aiTrips"
+         const docRef = doc(db, "aiTrips", tripId); 
 
          const docSnap = await getDoc(docRef);
 
