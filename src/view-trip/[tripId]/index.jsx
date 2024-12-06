@@ -14,7 +14,7 @@ const ViewTrip = () => {
 
     useEffect( () => {
        tripId && getTripDataFromDB()
-    })
+    },[])
     const getTripDataFromDB = async () => {
          const docRef = doc(db, "aiTrips", tripId); 
 
@@ -29,8 +29,7 @@ const ViewTrip = () => {
          }
     } 
   return (
-    <div>
-      trip ID = {tripId}
+    <div className="p-10 md:px-20 lg:px-44 xl:px-56 mt-5">
 
 
       {/* info section */}
