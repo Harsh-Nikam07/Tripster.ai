@@ -22,7 +22,7 @@
             title:'Family',
             desc:"A family of 4 looking for a fun-filled getaway",
             icon:'🏡',
-            people: {min:3, max:8},
+            people: 6,
             toolTipText:"The model is assuming 3-8 person if you select this,",
             estimatedBudget: 'Assumed budget $2,500 - $6,000',
         },
@@ -31,7 +31,7 @@
             title:'Friends',
             desc:"A group of friends looking for a lively adventure",
             icon:'⛵',
-            people: {min:4, max:10},
+            people: 10,
             toolTipText:"The model is assuming 4-10 person if you select this,",
             estimatedBudget: 'Assumed budget $5,500 - $10,000',
         }
