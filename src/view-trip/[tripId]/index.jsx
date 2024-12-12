@@ -30,7 +30,7 @@ const ViewTrip = () => {
          }
     } 
   return (
-    <div className="p-5 md:px-20 lg:px-44 xl:px-56 mt-5">
+    <div className="p-4 md:px-20 lg:px-44 xl:px-56 mt-5">
 
 
       {/* info section */}
