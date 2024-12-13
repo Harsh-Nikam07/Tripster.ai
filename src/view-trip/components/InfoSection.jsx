@@ -31,18 +31,18 @@ const InfoSection = ({ trip }) => {
         <h2 className='font-medium text-lg md:text-2xl text-gray-800'>{trip?.userSelection?.location?.label}</h2>
         
         <div className='flex justify-start items-start flex-row gap-2'>
-          <div className='w-fit flex justify-start items-center gap-2 bg-purple-100  px-3 pb-1 text-purple-500 rounded-full'>
+          <div className='w-fit flex justify-start items-center gap-2 bg-purple-200  px-3 pb-1 text-purple-900 rounded-full'>
             
             <span className="font-bold text-sm md:text-base ">{trip?.userSelection?.noOfDays} Days</span>
           </div>
 
-          <div className='w-fit flex justify-start items-center gap-2 bg-purple-100  px-3 pb-1 text-purple-500 rounded-full'>
+          <div className='w-fit flex justify-start items-center gap-2 bg-purple-200  px-3 pb-1 text-purple-900 rounded-full'>
            
             <span className="font-bold text-sm md:text-base">{trip?.userSelection?.Budget} </span>
           </div>
 
 
-          <div className='w-fit flex justify-start items-center gap-2 bg-purple-100  px-3 pb-1 text-purple-500 rounded-full'>
+          <div className='w-fit flex justify-start items-center gap-2 bg-purple-200  px-3 pb-1 text-purple-900 rounded-full'>
           
             <span className="font-bold text-sm md:text-base">{trip?.userSelection?.People} {trip?.userSelection?.People > 1 ? 'Travelers' : 'Traveler'} </span>
           </div>
