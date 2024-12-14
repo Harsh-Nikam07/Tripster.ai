@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { FaStar } from "react-icons/fa6";
 import { CgDetailsMore } from "react-icons/cg";
 import { Link } from 'react-router-dom';
+// import { FaLocationArrow } from "react-icons/fa6";
 
 const Hotels = ({ trip }) => {
 
@@ -24,7 +25,7 @@ const Hotels = ({ trip }) => {
               getMapsUrl(hotel.HotelName, hotel.HotelAddress)
             } target='_blank' rel='noopener noreferrer'>
             
-            <div className='relative flex justify-start items-start flex-col gap-2 hover:scale-105  rounded-lg py-3 px-1 transition-all'>
+            <div className='relative flex justify-start items-start flex-col gap-2 hover:scale-105 hover:bg-purple-50  rounded-lg py-3 px-1 transition-all'>
                 <div className='bg-purple-200 absolute left-2/3 md:left-3/4 top-5 px-2 py-[2px] rounded-xl  w-fit flex justify-center items-center flex-row gap-1'>
                   <FaStar className='text-purple-900  w-3 h-3'/>
                   <p className='text-xs md:text-sm font-semibold text-purple-900'>{hotel.rating}</p>
@@ -65,6 +66,15 @@ const Hotels = ({ trip }) => {
                   <FaMoneyBillWave className='text-black  w-4 h-4'/>
                   <p className='text-sm font-semibold'>{hotel.Price}</p>
                 </div>
+
+                {/* <Button 
+                          className="rounded-full bg-purple-100 hover:bg-purple-200 shadow-none px-3 py-2"
+                          onClick={() => getMapsUrl(hotel.HotelName, hotel.HotelAddress)}
+                        >
+                          <FaLocationArrow className=' text-purple-900' />
+                          <span  className='text-purple-900'>Take a look on maps</span>
+                </Button> */}
+
 
               </div>
             </div>

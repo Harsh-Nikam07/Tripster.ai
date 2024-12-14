@@ -42,8 +42,8 @@ const CreateTrip = () => {
   const handleInputChange = (name, value) =>{
 
     if(name == "noOfDays"){
-      if(value > 8) {
-        value = 8;
+      if(value > 5) {
+        value = 5;
         // alert("Maximum 8 days allowed!");
       }
     }
@@ -220,7 +220,7 @@ const CreateTrip = () => {
                   maxLength={2}
                   onChange={(e) => {
                     const value = parseInt(e.target.value);
-                    if (value > 8) {
+                    if (value > 5) {
                       e.target.value = '';
                       handleInputChange("noOfDays", ''); 
                       console.log("user has entered and value beyond the range")
@@ -230,7 +230,7 @@ const CreateTrip = () => {
                   }}
                 />
                 {formData?.noOfDays == "" && (
-                  <p className="text-red-500 text-sm">Please enter a value between 1-8 days</p>
+                  <p className="text-red-500 text-sm">Please enter a value between 1-5 days</p>
                 )}
               </div>
             </div>
