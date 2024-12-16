@@ -17,14 +17,15 @@ const PlacesToVisit = ({trip}) => {
   return (
     <div>
       <h2 className="font-bold text-lg md:text-xl text-gray-800 mb-1 mt-5">Places to Visit</h2>
-    <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-2'>
+    <div className='w-full grid grid-cols-1 md:grid-cols-2 gap-2 '>
     {
         trip?.tripData?.itinerary.map((item, index) => (
-          <div key={index} >
+          <div key={index} className='w-full flex justify-start items-start flex-col'>
             <h3 className=' text-sm md:text-lg font-semibold'>Day {item.day}</h3>
+            <div className='w-full flex justify-start items-start flex-row flex-wrap gap-3'>
             {
               item.places.map((plan, index) => (
-                <div key={index} >
+                <div key={index} className='w-full' >
                   <div className='w-full flex justify-between items-start md:items-center flex-col md:flex-row md:gap-0 gap-2'>
                     <h3 className='text-sm md:text-base font-normal text-red-500'> <span className='text-slate-600'>You can Visit at </span>{plan.timeToVisit}</h3>
                     <div className='pr-3 flex justify-center items-center gap-3 md:gap-1 flex-row-reverse'>
@@ -61,6 +62,7 @@ const PlacesToVisit = ({trip}) => {
                 </div>
               ))
             }
+            </div>
           </div>
         ))
       }
