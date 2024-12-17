@@ -9,12 +9,18 @@ export default defineConfig({
       "@": path.resolve(path.dirname(""), "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      // Ensure SPA fallback works properly
+      input: '/index.html',
+    },
+  },
   server: {
     host: true,
-    port: 3000
+    port: 3000,
   },
   preview: {
     host: true,
-    port: 3000
-  }
+    port: 3000,
+  },
 })
