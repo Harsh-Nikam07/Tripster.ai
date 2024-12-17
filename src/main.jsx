@@ -8,6 +8,7 @@ import Header from './components/custom/Header';
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ViewTrip from './view-trip/[tripId]';
+import Footer from './components/custom/Footer';
 
 // Check if the environment variable is accessible
 const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID;
@@ -36,8 +37,11 @@ createRoot(document.getElementById('root')).render(
     {googleClientId ? (
       <GoogleOAuthProvider clientId={googleClientId}>
         <Header />
+  
         <Toaster />
+        
         <RouterProvider router={router} />
+        <Footer/>
       </GoogleOAuthProvider>
     ) : (
       <div>

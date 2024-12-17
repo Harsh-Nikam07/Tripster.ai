@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      // Ensure SPA fallback works properly
+      
       input: '/index.html',
     },
   },
