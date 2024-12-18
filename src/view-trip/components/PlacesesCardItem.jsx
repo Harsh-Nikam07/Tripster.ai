@@ -96,7 +96,7 @@ const PlacesesCardItem = ({plan}) => {
         rel='noopener noreferrer'
     >
         <div className=' w-full flex justify-start items-start flex-row gap-4 border-[1px] border-slate-400 p-3 my-2 rounded-2xl hover:scale-[101%] transition-all '>
-            <img src={PhotoUrl} alt={plan.placeName} className="w-[150px] h-[150px] object-cover rounded-xl" />
+            <img src={!PhotoUrl ? "/placeholder.jpg" : PhotoUrl} alt={plan.placeName} className="w-[150px] h-[150px] object-cover rounded-xl" />
             <div className='h-full flex flex-col justify-end items-start'>
                 <div>
                     <h2 className='font-semibold text-sm md:text-base'>{plan.placeName}</h2>

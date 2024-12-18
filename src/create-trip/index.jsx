@@ -188,7 +188,7 @@ const CreateTrip = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-11 mb-11 ">
+      <div className="flex flex-col items-center justify-center mt-11 mb-20 ">
         <div className="md:w-2/3 w-11/12 flex flex-col items-start justify-start gap-3 text-wrap ">
           <div>
           <h1 className="md:text-3xl text-xl font-bold">Tell us your Travel Preferences 🏕️🌴</h1>
@@ -327,7 +327,7 @@ const CreateTrip = () => {
           </div>
 
           <div className=' w-full flex justify-end'>
-            <Button onClick={onGenerateTrip}
+            <Button className="w-full mt-6 md:w-fit" onClick={onGenerateTrip}
               disabled={loading}
             >
               {
