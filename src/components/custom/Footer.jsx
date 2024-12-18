@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white">
       <div className=" flex flex-col justify-center items-center md:flex-row p-2 my-6 gap-2 md:px-8">
-        <div className="w-full md:w-1/2 flex justify-center md:justify-start items-start flex-col gap-2">
+        <div className="w-full md:w-1/2 flex justify-center items-center md:justify-start md:items-start flex-col gap-2">
           <a href="/">
             <img
               src="/tripster-main-logo.svg"
