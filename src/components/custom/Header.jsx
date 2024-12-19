@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { CiUser } from "react-icons/ci";
+import { IoLogOutOutline } from "react-icons/io5";
 
 
 import { CiMenuFries } from "react-icons/ci";
@@ -52,18 +52,34 @@ const Header = () => {
             <DropdownMenu className="">
             <DropdownMenuTrigger className="focus:outline-none focus:ring-2 focus:ring-white ">
                   <Avatar>
-                    <AvatarImage src={!user.picture ? "/icons/light/user-light.svg" : user.picture} />
-                    {/* <AvatarFallback>{user.name.split(' ').map(word => word[0] + word[word.length - 1]).join('')}</AvatarFallback> */}
+                    {/* <AvatarImage src={!user.picture ? "/icons/light/user-light.svg" : user.picture} /> */}
+                    <AvatarImage src={!user.picture ? "https://github.com/shadcn.png" : user.picture} />
+                    <AvatarFallback>{user.name.split(' ')[0][0] + user.name.split(' ')[1][0]}</AvatarFallback>
                   </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-5 mt-8 shadow-none">
               <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
-                <div>
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
+                <div className=" w-full flex justify-start items-start flex-col">
+                <div className="flex justify-start items-start flex-row gap-2">
+
+
+                  <div>
+                    <span className="font-semibold">{user.name}</span>
+
+                  </div>
+
+
                 </div>
+
+                <div>
+                  <span className="text-xs"> {user.email}</span>
+                </div>
+                </div>
+              </DropdownMenuItem>
+
+
+              <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
+                  <Button className="w-full flex justify-center items-center flex-row"><IoLogOutOutline className="mt-[3px]"/> Logout</Button>
               </DropdownMenuItem>
   
 
@@ -104,8 +120,8 @@ const Header = () => {
               <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
                 <div>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={!user.picture ? "https://github.com/shadcn.png" : user.picture} />
+                  <AvatarFallback>{user.name.split(' ')[0][0] + user.name.split(' ')[1][0]}</AvatarFallback>
                   </Avatar>
                 </div>
               </DropdownMenuItem>
