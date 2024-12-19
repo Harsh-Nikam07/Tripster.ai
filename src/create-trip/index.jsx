@@ -67,7 +67,7 @@ const CreateTrip = () => {
           label: <LiaTimesSolid className='text-xl'/>,
         }
       });
-      getUserProfile(codeResponse)
+      getUserProfile(codeResponse);
     },
     onError: (error) => {
       console.error("Login Failed:", error);
