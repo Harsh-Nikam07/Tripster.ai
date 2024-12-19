@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <>
-    <div className=" w-full h-screen md:h-[90vh] flex items-center justify-center flex-col gap-10 ">
+    <div className=" w-full h-[80vh] md:h-[90vh] flex items-center justify-center flex-col gap-10 ">
       <div className="flex items-center justify-center flex-col gap-5">
         <span className="md:w-3/4 w-4/5 md:text-7xl text-5xl text-center font-bold">Effortless Trip Planning with Tripster AI</span>
       </div>

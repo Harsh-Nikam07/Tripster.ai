@@ -4,11 +4,10 @@ import './index.css';
 import App from './App.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import CreateTrip from './create-trip';
-import Header from './components/custom/Header';
+import ViewTrip from './view-trip/[tripId]';
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import ViewTrip from './view-trip/[tripId]';
-import Footer from './components/custom/Footer';
+import Layout from './Layout';
 
 // Check if the environment variable is accessible
 const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID;
@@ -20,28 +19,21 @@ if (!googleClientId) {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />
+    element: <Layout />, // Wrap routes with Layout
+    children: [
+      { path: '/', element: <App /> },
+      { path: '/create-trip', element: <CreateTrip /> },
+      { path: '/view-trip/:tripId', element: <ViewTrip /> }
+    ],
   },
-  {
-    path: '/create-trip',
-    element: <CreateTrip />
-  },
-  {
-    path: '/view-trip/:tripId',
-    element: <ViewTrip />
-  }
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {googleClientId ? (
       <GoogleOAuthProvider clientId={googleClientId}>
-        <Header />
-  
         <Toaster />
-        
         <RouterProvider router={router} />
-        <Footer/>
       </GoogleOAuthProvider>
     ) : (
       <div>
