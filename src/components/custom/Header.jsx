@@ -92,9 +92,9 @@ const Header = () => {
   return (
     <>
     <div className=" flex justify-between items-center p-2 px-4 shadow-sm sticky top-0 bg-gray-00 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 z-10">
-        <a href="/">
+        <Link to={'/'}>
         <img className="w-40" src="/tripster-main-logo.svg" alt="Tripster Logo" />
-        </a>
+        </Link>
         <div className=" hidden md:visible lg:visible xl:visible w-fit md:flex justify-center items-center flex-row gap-2">
           
           {
@@ -130,7 +130,9 @@ const Header = () => {
         : <div className="flex justify-center items-center flex-row gap-2">
 
           <div>
-            <Button variant="outline" className="font-semibold">My Trips</Button>
+            <Link to={'/my-trips'}>
+              <Button variant="outline" className="font-semibold rounded-full">My Trips</Button>
+            </Link>
           </div>
             <DropdownMenu className="" trigger="hover" contentTrigger="click">
             <DropdownMenuTrigger className="focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-100">
@@ -230,7 +232,9 @@ const Header = () => {
               </DropdownMenuItem>
 
               <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
-              <Button variant="outline" className="font-semibold w-full">My Trips</Button>
+                <Link to={'/my-trips'}>
+                  <Button variant="outline" className="font-semibold w-full rounded-full">My Trips</Button>
+                </Link>
               </DropdownMenuItem>
 
 

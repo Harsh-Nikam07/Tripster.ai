@@ -8,6 +8,7 @@ import ViewTrip from './view-trip/[tripId]';
 import { Toaster } from "@/components/ui/sonner";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Layout from './Layout';
+import UserGeneratedTrips from './my-trips/UserGeneratedTrips';
 
 // Check if the environment variable is accessible
 const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID;
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <App /> },
       { path: '/create-trip', element: <CreateTrip /> },
-      { path: '/view-trip/:tripId', element: <ViewTrip /> }
+      { path: '/view-trip/:tripId', element: <ViewTrip /> },
+      { path: '/my-trips', element: <UserGeneratedTrips/> }
     ],
   },
 ]);
