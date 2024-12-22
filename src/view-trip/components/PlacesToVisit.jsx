@@ -22,13 +22,13 @@ const PlacesToVisit = ({trip}) => {
         trip?.tripData?.itinerary.map((item, index) => (
           <div key={index} className='w-full flex justify-start items-start flex-col'>
             <h3 className=' text-sm md:text-lg font-semibold'>Day {item.day}</h3>
-            <div className=' flex justify-start items-start flex-row flex-wrap gap-4'>
+            <div className='w-full flex justify-start items-start flex-row flex-wrap gap-4'>
             {
               item.places.map((plan, index) => (
-                <div key={index}  className={item.places.length === 1 ? 'w-full' : 'w-[49%]'}>
+                <div key={index}  className={item.plan.length === 1 ? 'w-full' : 'w-full md:w-[49%]'}>
                   <div className='w-full flex justify-between items-start md:items-center flex-col md:flex-row md:gap-0 gap-2'>
-                    <h3 className='w-[] text-sm md:text-sm font-normal text-red-500'> <span className='text-slate-600'>You can Visit at </span>{plan.timeToVisit}</h3>
-                    <div className='pr-3 flex justify-center items-center gap-3 md:gap-1 flex-row-reverse'>
+                    <h3 className='w-full text-sm md:text-sm font-normal text-red-500'> <span className='text-slate-600'>You can Visit at </span>{plan.timeToVisit}</h3>
+                    <div className=' flex justify-center items-center gap-3 md:gap-1 flex-row-reverse'>
                       <TooltipProvider delayDuration={0}>
                           <Tooltip>
                             <TooltipTrigger asChild>
