@@ -129,11 +129,11 @@ const Header = () => {
 
         : <div className="flex justify-center items-center flex-row gap-2">
 
-          <div>
+          {/* <div>
             <Link to={'/my-trips'}>
               <Button variant="outline" className="font-semibold rounded-full">My Trips</Button>
             </Link>
-          </div>
+          </div> */}
             <DropdownMenu className="" trigger="hover" contentTrigger="click">
             <DropdownMenuTrigger className="focus:outline-none focus:ring-2 focus:ring-white hover:bg-gray-100">
                   <Avatar>
@@ -231,11 +231,11 @@ const Header = () => {
                 </div>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
+              {/* <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
                 <Link to={'/my-trips'}>
                   <Button variant="outline" className="font-semibold w-full rounded-full">My Trips</Button>
                 </Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
 
 
               <DropdownMenuItem className="focus:outline-none focus:ring-2 focus:ring-white bg-transparent">
